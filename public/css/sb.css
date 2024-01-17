@@ -1,0 +1,99 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 320px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #d9d9d9;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-top a {
+    text-decoration: none;
+    font-size: 25px;
+    text-align: center;
+    background-color: #bebebe;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 14px;
+    margin-bottom: 34px;
+    border-radius: 7px;
+}
+
+.btn-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-home {
+    width: 140px;
+    height: 64px;
+}
+
+.btn-kasir {
+    width: 213px;
+    height: 64px;
+}
+
+.btn-barang {
+    width: 223px;
+    height: 64px;
+}
+
+.btn-trans {
+    width: 257px;
+    height: 64px;
+}
+
+.btn-logout {
+    width: 154px;
+    height: 65px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 25px;
+    border-radius: 7px;
+    margin-left: 14px;
+    margin-bottom: 30px;
+}
+
+.btn-home i,
+.btn-kasir i,
+.btn-barang i,
+.btn-trans i,
+.btn-logout i {
+    margin-right: 8px;
+}
+
+.btn-home {
+    background-color: #1E90FF;
+}
+
+.btn-kasir {
+    background-color: #32CD32;
+}
+
+.btn-barang {
+    background-color: #FFD700;
+}
+
+.btn-trans {
+    background-color: #9370DB;
+}
+
+.btn-logout {
+    background-color: #FF6B65;
+}
