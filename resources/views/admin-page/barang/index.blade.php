@@ -146,14 +146,27 @@
                     @foreach ($barang as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+
                             <td>{{ $item->nama_barang }} </td>
-                            <td>{{ $item->stok }}</td>
+                            <td>{{ $item->stok }}
+                                @if ($item->stok > 10)
+                                    <i style="color: lightgreen;" class="fas fa-angle-up"></i>
+                                @endif
+                                @if ($item->stok < 10)
+                                    <i style="color: red;" class="fas fa-angle-down"></i>
+                                @endif
+                            </td>
+
                             <td>{{ $item->harga_barang }}</td>
                             <td>
                                 <div class="ed">
 
-                                    <a class="btn-edit" href="/edit/{{ $barang->id }}">Edit
-                                        <i class="fa-solid fa-pen"></i></a>
+                                    <a class="btn-edit" href="{{ route('barang.edit', $item->id) }}">Edit <i
+                                            class="fa-solid fa-pen"></i></a>
+
+                                    @if ($item->stok > 10)
+                                        <i style="color: lightgreen;" class="fas fa-angle-up"></i>
+                                    @endif
 
                                     <form action="" method="POST">
                                         @csrf

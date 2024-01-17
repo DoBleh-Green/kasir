@@ -101,18 +101,18 @@
     <div id="edit-form" style="display: block;">
         <div class="overlay"></div>
         <div class="form-container">
-            <form action="/update/{{ $user->id }}" method="POST" class="edit-form">
+            <form action="{{ route('barang.update', ['id' => $data->id]) }}" method="POST" class="edit-form">
                 @csrf
                 @method('put')
                 <h1>Edit Account</h1>
                 <label for="name">NAma Barang:</label>
-                <input type="text" id="nama_barang" name="nama_barang" value="{{ $user->nama_barang }}">
+                <input type="text" id="nama_barang" name="nama_barang" value="{{ $data->nama_barang }}" required>
 
                 <label for="stok">Stok:</label>
-                <input type="number" id="stok_barang" name="stok_barang" value="{{ $user->stok_barang }}">
+                <input type="number" id="stok" name="stok" value="{{ $data->stok }}">
 
                 <label for="harga">Harga :</label>
-                <input type="number" id="harga_barang" name="harga_barang" value="{{ $user->harga_barang }}">
+                <input type="number" id="harga_barang" name="harga_barang" value="{{ $data->harga_barang }}" required>
 
                 <div class="btn-bot">
                     <button class="edit-btn" type="submit">Edit</button>

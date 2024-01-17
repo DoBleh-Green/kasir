@@ -11,12 +11,24 @@ class CrudBarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $barang = barang::all();
+
+        $sort = $request->query('sort', 'none');
+
+        if ($sort === 'desc') {
+            $barang = Barang::orderBy('stok', 'desc')->get();
+        } elseif ($sort === 'asc') {
+            $barang = Barang::orderBy('stok', 'asc')->get();
+        } else {
+            $barang = Barang::all();
+        }
         // menampilkan 'admin-page.barang.index'
         return view('admin-page.barang.index', ['barang' => $barang]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -58,44 +70,43 @@ class CrudBarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        // Menggunakan model barang untuk mencari pengguna berdasarkan ID
-        $barang = barang::find($id);
+        $data = barang::where('id', $id)->first();
+        return view('admin-page.barang.edit')->with('data', $data);
+        // // Menggunakan model barang untuk mencari pengguna berdasarkan ID
+        // $barang = barang::find($id_barang);
 
-        // Mengembalikan tampilan 'admin-page/barang/form_edit' dan menyertakan data pengguna
-        return view('admin-page.barang.edit', ['barang' => $barang]);
+        // // Mengembalikan tampilan 'admin-page/barang/form_edit' dan menyertakan data pengguna
+        // return view('admin-page.barang.edit', ['barang' => $barang]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        try {
-            // Menggunakan model barang untuk mencari pengguna berdasarkan ID
-            $barang = barang::findOrFail($id);
+        // Validasi data yang diterima dari formulir
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'stok' => 'required|integer',
+            'harga_barang' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            // Sesuaikan dengan aturan validasi yang sesuai dengan kebutuhan Anda
+        ]);
 
-            // Validasi input sesuai kebutuhan Anda
-            // required | jenis data | panjang huruf
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . $id,
-            ]);
+        // Temukan data barang berdasarkan $id
+        $barang = Barang::findOrFail($id);
 
-            // Update informasi pengguna dengan nilai dari request
-            $barang->name = $request->name;
-            $barang->email = $request->email;
+        // Update data barang
+        $barang->update([
+            'nama_barang' => $request->input('nama_barang'),
+            'stok' => $request->input('stok'),
+            'harga_barang' => $request->input('harga_barang'),
+            // Sesuaikan dengan nama kolom dalam model Anda
+        ]);
 
-            // Menyimpan perubahan informasi pengguna ke database
-            $barang->save();
-
-            // Redirect ke route 'barang.index' dengan ID pengguna dan memberikan pesan sukses
-            return redirect()->route('barang.index', $id)->with('success-edit', 'User updated successfully');
-        } catch (\Exception $e) {
-            // Jika terjadi exception, redirect ke route 'barang.index' dengan ID pengguna dan memberikan pesan error
-            return redirect()->route('barang.index', $id)->with('error', 'User update failed');
-        }
+        // Redirect ke halaman yang sesuai atau berikan pesan sukses
+        return redirect()->route('barang.index')->with('success-edit', 'Data barang berhasil diperbarui.');
     }
 
     /**
@@ -105,4 +116,6 @@ class CrudBarangController extends Controller
     {
         //
     }
+
+
 }

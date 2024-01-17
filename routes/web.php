@@ -49,7 +49,8 @@ Route::middleware(['auth'])->group(function ($user) {
     // Route Crud Barang Start
     Route::get('/admin/barang', [CrudBarangController::class, 'index'])->name('barang.index')->middleware('userAkses:admin');
     Route::post('/admin/barang', [CrudBarangController::class, 'store'])->name('barang.store')->middleware('userAkses:admin');
-    Route::put('/admin/kasir/{id}', [CrudKasirController::class, 'edit'])->name('kasir.edit')->middleware('userAkses:admin');
+    Route::get('/admin/barang/{id}/edit', [CrudBarangController::class, 'edit'])->name('barang.edit')->middleware('userAkses:admin');
+    Route::put('/admin/barang/update/{id}', [CrudBarangController::class, 'update'])->name('barang.update')->middleware('userAkses:admin');
 
     // Route Crud Barang End
 
