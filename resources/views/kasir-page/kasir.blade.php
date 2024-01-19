@@ -5,29 +5,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
 </head>
 
-<body class="bg-secondary">
-    <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
-        <h1>Halo!!</h1>
-        <div>Selamat datang di halaman admin</div>
-        <div><a href="/logout" class="btn btn-sm btn-secondary">Logout >></a></div>
-        <div class="card mt-3">
-            <ul class="list-group list-group-flush">
-                @if (Auth::user()->role == 'kasir')
-                    <li class="list-group-item">Menu Kasir</li>
-                    @endif @if (Auth::user()->role == 'admin')
-                        <li class="list-group-item">Menu Admin</li>
-                    @endif
-            </ul>
+<body class="bg-secondary" style="font-family: 'Roboto', sans-serif;">
+    <div class="bg-white m-3 border px-3 py-3" style="width:633px; height:725px;">
+        <h2 style="font-size: 20px">{{ Auth::User()->name }}</h2>
+        <div class="src d-flex">
+            <input class="border " style="background: #D9D9D9; height:40px; width: 218px; font-size:17px;"
+                type="text" placeholder="Cari Barang">
+            <a href="" class="btn btn-primary mx-4"
+                style="border-radius:0px; height:40px; widtth:98px; font-size:20px; ">Search</a>
+        </div>
+
+        <div class="my-4 container" style="background: #D9D9D9; font-size: 20px;">
+            <table class="table table-bordered table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Stok</th>
+                        <p></p>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

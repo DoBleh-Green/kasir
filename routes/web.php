@@ -3,7 +3,7 @@
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SesiController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CrudKasirController;
 use App\Http\Controllers\CrudBarangController;
@@ -29,8 +29,10 @@ Route::get('/home', function () {
 });
 
 Route::middleware(['auth'])->group(function ($user) {
-    Route::get('/admin', [AdminController::class, 'admin'])->name('admin')->middleware('userAkses:admin');
-    Route::get('/form_edit/{id}', [CrudKasirController::class, 'edit'])->name('crud_kasir')->middleware('userAkses:admin');
+    /* Session Admin Start */
+
+    Route::get('/admin', [LoginController::class, 'admin'])->name('admin')->middleware('userAkses:admin');
+    Route::get('admin/kasir/form_edit/{id}', [CrudKasirController::class, 'edit'])->name('crud_kasir')->middleware('userAkses:admin');
 
     // Route Crud Kasir Start
 
@@ -38,7 +40,7 @@ Route::middleware(['auth'])->group(function ($user) {
     // Route halaman pembuatan data kasir baru.
     Route::post('/admin/kasir', [CrudKasirController::class, 'store'])->name('kasir.store')->middleware('userAkses:admin');
     // Route halaman pengeditan data kasir .
-    Route::put('/admin/kasir/update/{id}', [CrudKasirController::class, 'update'])->name('kasir.update')->middleware('userAkses:admin');
+    Route::put('/update/{id}', [CrudKasirController::class, 'update'])->name('kasir.update')->middleware('userAkses:admin');
     // Route untuk back end pengeditan data kasir.
     Route::put('/admin/kasir/{id}', [CrudKasirController::class, 'edit'])->name('kasir.edit')->middleware('userAkses:admin');
     // Route untuk back end penghapusan data kasir.
@@ -47,10 +49,16 @@ Route::middleware(['auth'])->group(function ($user) {
     // Route Crud Kasir End
 
     // Route Crud Barang Start
+
     Route::get('/admin/barang', [CrudBarangController::class, 'index'])->name('barang.index')->middleware('userAkses:admin');
+    // Route halaman pembuatan data barang baru.    
     Route::post('/admin/barang', [CrudBarangController::class, 'store'])->name('barang.store')->middleware('userAkses:admin');
+    // Route halaman pengeditan data barang.
     Route::get('/admin/barang/{id}/edit', [CrudBarangController::class, 'edit'])->name('barang.edit')->middleware('userAkses:admin');
+    // Route untuk back end pengeditan data barang.
     Route::put('/admin/barang/update/{id}', [CrudBarangController::class, 'update'])->name('barang.update')->middleware('userAkses:admin');
+    // Route untuk back end penghapusan data barang.
+    Route::delete('/admin/barang/{id}', [CrudBarangController::class, 'destroy'])->name('barang.destroy')->middleware('userAkses:admin');
 
     // Route Crud Barang End
 
@@ -60,9 +68,18 @@ Route::middleware(['auth'])->group(function ($user) {
     // Route History jadi pdf
     Route::get('/admin/history/view/pdf', [HistoryController::class, 'view_pdf'])->name('view_pdf')->middleware('userAkses:admin');
 
+
+    /* Session Admin End */
+
     // Route End
 
-    Route::get('/kasir', [AdminController::class, 'kasir'])->middleware('userAkses:kasir');
+    /* Session Kasir Start */
+
+    Route::get('/kasir', [LoginController::class, 'kasir'])->middleware('userAkses:kasir');
+    // Route Logout
+
+    /* Session Kasir End */
+
 
     Route::get('/logout', [SesiController::class, 'logout']);
 });

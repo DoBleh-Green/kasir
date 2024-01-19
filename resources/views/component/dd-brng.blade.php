@@ -16,7 +16,7 @@
 
             <div class="dropdown-content">
                 <a href="{{ route('barang.index', ['sort' => 'desc']) }}">
-                    <span class="icon">Stock <i style="color: lightgreen;" class="fas fa-angle-up"></i></span>
+                    <span class="icon">Stock <i style="color: green;" class="fas fa-angle-up"></i></span>
                 </a>
                 <a href="{{ route('barang.index', ['sort' => 'none']) }}">
                     <span class="icon">Stock <i style="color: #333;" class="fas fa-minus"></i></span>

@@ -114,7 +114,22 @@ class CrudBarangController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barang = barang::find($id);
+
+        // Periksa apakah pengguna ditemukan
+        if (!$barang) {
+            return abort(404); // Not Found
+        }
+
+        // Hapus pengguna
+        $barang->delete();
+
+        // Tetapkan pesan sukses atau sesuai dengan kebutuhan Anda
+        $message = 'User with ID ' . $id . ' has been deleted.';
+
+        // Redirect kembali ke halaman yang sama dengan menyertakan pesan sukses
+        return redirect('/admin/barang')->with('success-delete', $message);
+
     }
 
 

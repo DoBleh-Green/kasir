@@ -150,7 +150,7 @@
                             <td>{{ $item->nama_barang }} </td>
                             <td>{{ $item->stok }}
                                 @if ($item->stok > 10)
-                                    <i style="color: lightgreen;" class="fas fa-angle-up"></i>
+                                    <i style="color: green;" class="fas fa-angle-up"></i>
                                 @endif
                                 @if ($item->stok < 10)
                                     <i style="color: red;" class="fas fa-angle-down"></i>
@@ -164,11 +164,7 @@
                                     <a class="btn-edit" href="{{ route('barang.edit', $item->id) }}">Edit <i
                                             class="fa-solid fa-pen"></i></a>
 
-                                    @if ($item->stok > 10)
-                                        <i style="color: lightgreen;" class="fas fa-angle-up"></i>
-                                    @endif
-
-                                    <form action="" method="POST">
+                                    <form action="{{ route('barang.destroy', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn-delete" style="font-size: 18px;"

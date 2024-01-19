@@ -150,7 +150,7 @@
                                 <td>
                                     <div class="ed">
 
-                                        <a class="btn-edit" href="/form_edit/{{ $user->id }}">Edit
+                                        <a class="btn-edit" href="/admin/kasir/form_edit/{{ $user->id }}">Edit
                                             <i class="fa-solid fa-pen"></i></a>
 
                                         <form action="{{ route('kasir.destroy', $user->id) }}" method="POST">
