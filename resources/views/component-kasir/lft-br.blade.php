@@ -12,12 +12,10 @@
     <div class="left-bar">
         <div class="a-left-bar">
             <h2>{{ Auth::User()->name }}</h2>
-            <div class="g-search">
-                <form method="GET" action="{{ route('search') }}">
-                    <input class="search-input" type="text" name="query" placeholder="Cari Barang">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
+            <form method="GET" action="{{ route('search') }}" class="g-search">
+                <input class="search-input" type="text" name="query" placeholder="Cari Barang">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
 
             <div class="tbl-src">
                 <table>
@@ -30,16 +28,21 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    @foreach ($barang as $barang)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $barang->nama_barang }}</td>
-                            <td>{{ $barang->stok }}</td>
-                            <td>{{ $barang->harga_barang }}</td>
-                            <td><a href="#">Select</a></td>
-                        </tr>
-                    @endforeach
+                    <tbody>
+                        @foreach ($barang as $barang)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $barang->nama_barang }}</td>
+                                <td>{{ $barang->stok }}</td>
+                                <td>{{ number_format($barang->harga_barang, 0, ',', '.') }}</td>
+                                <td><a href="#">Select</a></td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
                 </table>
+                @include('component-kasir.alert')
+
             </div>
             <div class="kpb">
                 <h2>Konfirmasi Barang</h2>

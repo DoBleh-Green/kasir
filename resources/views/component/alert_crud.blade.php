@@ -36,6 +36,11 @@
         @endif
     @endif
 
+    @if (!empty($message_missing))
+        <div class="alert alert-danger-delete">
+            {{ $message_missing }}
+        </div>
+    @endif
 </body>
 
 </html>

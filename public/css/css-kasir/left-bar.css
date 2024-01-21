@@ -44,7 +44,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
     display: inline-block;
-    border-radius: 0px;
     height: 42px;
     width: 98px;
     font-size: 20px;
@@ -53,6 +52,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     align-items: center;
     display: flex;
+    border: none;
 }
 
 .btn-primary {

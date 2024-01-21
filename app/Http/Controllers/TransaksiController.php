@@ -22,6 +22,13 @@ class TransaksiController extends Controller
             ->orWhere('harga_barang', 'like', '%' . $query . '%')
             ->get();
 
-        return view('kasir-page.kasir', compact('barang'));
+        // Check if any records are found
+        if ($barang->isEmpty()) {
+            $message_missing = 'Barang tidak ditemukan.';
+        } else {
+            $message_missing = null;
+        }
+
+        return view('kasir-page.kasir', compact('barang', 'message_missing'));
     }
 }
