@@ -13,8 +13,10 @@
         <div class="a-left-bar">
             <h2>{{ Auth::User()->name }}</h2>
             <div class="g-search">
-                <input class="search-input" style="" type="text" placeholder="Cari Barang">
-                <a href="" class="btn btn-primary">Search</a>
+                <form method="GET" action="{{ route('search') }}">
+                    <input class="search-input" type="text" name="query" placeholder="Cari Barang">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
             </div>
 
             <div class="tbl-src">
@@ -28,29 +30,15 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    @foreach ($barang as $barang)
                         <tr>
-                            <td>1</td>
-                            <td>Sandal</td>
-                            <td>17</td>
-                            <td>25000</td>
-                            <td><a href="">Select</a></td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $barang->nama_barang }}</td>
+                            <td>{{ $barang->stok }}</td>
+                            <td>{{ $barang->harga_barang }}</td>
+                            <td><a href="#">Select</a></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Laptop</td>
-                            <td>7</td>
-                            <td>3000000</td>
-                            <td><a href="">Select</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>toples</td>
-                            <td>20</td>
-                            <td>150000</td>
-                            <td><a href="">Select</a></td>
-                        </tr>
-                    </tbody>
+                    @endforeach
                 </table>
             </div>
             <div class="kpb">
@@ -66,9 +54,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Sandal</td>
-                                <td>2</td>
-                                <td>50000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,7 +64,7 @@
                 <div class="p-qty">
                     <h3>Tambah Qty Barang</h3>
 
-                    <input class="qty-input" type="number">
+                    <input class="qty-input" type="number" value="1">
                     <a href="">Tambah</a>
                 </div>
                 <a href="">Confirm</a>

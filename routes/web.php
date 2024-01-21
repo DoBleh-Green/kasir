@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CrudKasirController;
 use App\Http\Controllers\CrudBarangController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,9 @@ Route::middleware(['auth'])->group(function ($user) {
     /* Session Kasir Start */
 
     Route::get('/kasir', [LoginController::class, 'kasir'])->middleware('userAkses:kasir');
+    Route::get('/kasir', [TransaksiController::class, 'index'])->middleware('userAkses:kasir');
+    Route::get('/kasir', [TransaksiController::class, 'search'])->name('search')->middleware('userAkses:kasir');
+
     // Route Logout
 
     /* Session Kasir End */
