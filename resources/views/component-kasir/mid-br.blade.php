@@ -26,6 +26,7 @@
                     <th>Qty</th>
                     <th>Harga</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,7 @@
                     <td>2</td>
                     <td>25000</td>
                     <td>50000</td>
+                    <td><a href="">Hapus</a></td>
                 </tr>
             </tbody>
         </table>

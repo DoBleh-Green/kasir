@@ -13,6 +13,12 @@
     {{-- jika delete berhasil dilakukan di cotroler ia akan membuat 
         parameter succsess di session dan dipanggilke sini --}}
 
+    @if (!empty($message))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endif
+
     @if (!empty($message_missing))
         <div class="alert alert-missing">
             {{ $message_missing }}

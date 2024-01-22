@@ -76,9 +76,12 @@ Route::middleware(['auth'])->group(function ($user) {
 
     /* Session Kasir Start */
 
-    Route::get('/kasir', [LoginController::class, 'kasir'])->middleware('userAkses:kasir');
-    Route::get('/kasir', [TransaksiController::class, 'index'])->middleware('userAkses:kasir');
+    Route::get('/kasir', [TransaksiController::class, 'index'])->middleware('userAkses:kasir')->name('kasir');
     Route::get('/kasir', [TransaksiController::class, 'search'])->name('search')->middleware('userAkses:kasir');
+
+    Route::post('/kasir/{id}', [TransaksiController::class, 'addToCart'])->name('addToCart');
+    Route::delete('/kasir/{id}/remove', [TransaksiController::class, 'removeFromCart'])->name('removeFromCart');
+
 
     // Route Logout
 
