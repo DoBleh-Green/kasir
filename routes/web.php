@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Auth\Events\Logout;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CrudKasirController;
-use App\Http\Controllers\CrudBarangController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\CrudBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,20 +69,26 @@ Route::middleware(['auth'])->group(function ($user) {
     Route::get('/admin/history', [HistoryController::class, 'index'])->name('history.index')->middleware('userAkses:admin');
     // Route History jadi pdf
     Route::get('/admin/history/view/pdf', [HistoryController::class, 'view_pdf'])->name('view_pdf')->middleware('userAkses:admin');
+    //filter    
+    Route::get('/admin/history/filter', [HistoryController::class, 'filter'])->name('history.filter')->middleware('userAkses:admin');
 
 
     /* Session Admin End */
 
-    // Route End
+    // Route Endcheckout
 
     /* Session Kasir Start */
 
-    Route::get('/kasir', [TransaksiController::class, 'index'])->middleware('userAkses:kasir')->name('kasir');
+    Route::get('/kasir', [TransaksiController::class, 'index'])->name('kasir')->middleware('userAkses:kasir');
     Route::get('/kasir', [TransaksiController::class, 'search'])->name('search')->middleware('userAkses:kasir');
+    Route::post('/kasir/{id}', [TransaksiController::class, 'addToCart'])->name('addToCart')->middleware('userAkses:kasir');
+    Route::delete('/kasir/{id}/remove', [TransaksiController::class, 'removeFromCart'])->name('removeFromCart')->middleware('userAkses:kasir');
+    Route::delete('/kasir/{id}/reduce', [TransaksiController::class, 'reduceQuantity'])->name('reduceQuantity')->middleware('userAkses:kasir');
+    Route::post('/kasir/struk/print', [TransaksiController::class, 'checkout'])->name('checkout')->middleware('userAkses:kasir');
+    Route::post('/kasir ', [TransaksiController::class, 'processPayment'])->name('processPayment')->middleware('userAkses:kasir');
+    Route::get('/kasir/struk/print/generate-pdf', [TransaksiController::class, 'generatePDF'])->name('generatePDF')->middleware('userAkses:kasir');
 
-    Route::post('/kasir/{id}', [TransaksiController::class, 'addToCart'])->name('addToCart');
-    Route::delete('/kasir/{id}/remove', [TransaksiController::class, 'removeFromCart'])->name('removeFromCart');
-
+    Route::get('/kasir/json/pler', [Controller::class, 'viewCart'])->name('viewCart')->middleware('userAkses:kasir');
 
     // Route Logout
 

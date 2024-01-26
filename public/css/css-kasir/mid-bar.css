@@ -1,0 +1,28 @@
+    .right-bar {
+        background: #fff;
+        width: auto;
+    }
+
+    .right-bar h1 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .right-bar p {
+        margin-bottom: 0;
+    }
+
+    .byr {
+        display: flex;
+        gap: 30px;
+    }
+
+    .kmbl {
+        display: flex;
+        gap: 9px;
+    }
+
+    .discount-container {
+        display: flex;
+        gap: 35px;
+    }

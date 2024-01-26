@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #b4b4b4;
+}
+
+.c {
+    width: 345px;
+}
+
+.brng-m {
+    background: #fff;
+    text-align: center;
+    padding: 7px;
+
+}
+
+.hdr {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bott-1,
+.bott-2 {
+    border-bottom: 2px dotted #000;
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+}
+
+table {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    width: 100%;
+}

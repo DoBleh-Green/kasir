@@ -120,28 +120,44 @@
             <div class="btn">
                 <a href="{{ route('view_pdf') }}" target="blank" class="btn-create"><i class="fa-solid fa-print"
                         style="margin-right: 11px;"></i>Print</a>
-            </div>
+                <!-- Add this before your table -->
+                <div class="filter-form">
+                    <form method="GET" action="{{ route('history.filter') }}">
+                        <label for="kasir">Filter by Cashier:</label>
+                        <input type="text" name="kasir" id="kasir" placeholder="Enter cashier's name">
+
+                        <label for="date">Filter by Date:</label>
+                        <input type="date" name="date" id="date">
+
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+            </div><br>
+
+
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
+                        <th>Item</th>
+                        <th>Total</th>
+                        <th>Dibuat</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
                         // Mengambil data pengguna dengan peran 'kasir'
-                        $kasirUsers = \App\Models\User::where('role', 'kasir')->get();
+                        $historyPembelian = \App\Models\Struk::all();
                     @endphp
 
-                    @foreach ($kasirUsers as $index => $user)
+                    @foreach ($historyPembelian as $index => $struk)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>Hidden</td>
+                            <td>{{ $struk->nama_kasir }}</td>
+                            <td>{{ json_encode($struk->items) }}</td>
+                            <td>{{ $struk->total_harga }}</td>
+                            <td>{{ $struk->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>

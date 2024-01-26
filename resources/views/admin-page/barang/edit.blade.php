@@ -105,7 +105,7 @@
                 @csrf
                 @method('put')
                 <h1>Edit Account</h1>
-                <label for="name">NAma Barang:</label>
+                <label for="name">Nama Barang:</label>
                 <input type="text" id="nama_barang" name="nama_barang" value="{{ $data->nama_barang }}" required>
 
                 <label for="stok">Stok:</label>

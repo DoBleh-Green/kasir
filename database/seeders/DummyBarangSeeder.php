@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\BarangModels;
+use App\Models\barang;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -18,18 +18,23 @@ class DummyBarangSeeder extends Seeder
             [
                 'nama_barang' => 'sandal',
                 'stok' => 10,
-                'harga_beli' => 25000,
+                'harga_barang' => 25000,
             ],
-            // Tambahkan data lain jika diperlukan
+            [
+                'nama_barang' => 'sepatu',
+                'stok' => 10,
+                'harga_barang' => 25000,
+            ],
+            [
+                'nama_barang' => 'sapu',
+                'stok' => 10,
+                'harga_barang' => 25000,
+            ],
         ];
 
-        foreach ($barangData as $data) {
-            // Periksa apakah data sudah ada sebelum membuatnya
-            $existingData = BarangModels::where('nama_barang', $data['nama_barang'])->first();
-
-            if (!$existingData) {
-                BarangModels::create($data);
-            }
+        foreach ($barangData as $key => $val) {
+            Barang::create($val);
         }
     }
+
 }

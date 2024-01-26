@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Mpdf\Mpdf;
+use App\Models\Struk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,4 +73,22 @@ class HistoryController extends Controller
         // Menyimpan atau menampilkan file PDF
         $mpdf->Output();
     }
+
+    public function filter(Request $request)
+    {
+        $kasir = $request->input('kasir');
+        $date = $request->input('date');
+
+        // Query to get filtered history
+        $historyPembelian = Struk::when($kasir, function ($query) use ($kasir) {
+            return $query->where('nama_kasir', $kasir);
+        })
+            ->when($date, function ($query) use ($date) {
+                return $query->whereDate('created_at', $date);
+            })
+            ->get();
+
+        return view('admin-page.history.index', compact('historyPembelian'));
+    }
+
 }
