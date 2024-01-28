@@ -121,7 +121,7 @@
                 <a href="{{ route('view_pdf') }}" target="blank" class="btn-create"><i class="fa-solid fa-print"
                         style="margin-right: 11px;"></i>Print</a>
                 <!-- Add this before your table -->
-                <div class="filter-form">
+                {{-- <div class="filter-form">
                     <form method="GET" action="{{ route('history.filter') }}">
                         <label for="kasir">Filter by Cashier:</label>
                         <input type="text" name="kasir" id="kasir" placeholder="Enter cashier's name">
@@ -131,7 +131,7 @@
 
                         <button type="submit">Filter</button>
                     </form>
-                </div>
+                </div> --}}
             </div><br>
 
 

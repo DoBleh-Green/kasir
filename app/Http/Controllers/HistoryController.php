@@ -17,8 +17,9 @@ class HistoryController extends Controller
 
     function view_pdf()
     {
-        // Mengambil data pengguna dengan peran 'kasir'
-        $kasirUsers = \App\Models\User::where('role', 'kasir')->get();
+        // Mengambil data dari database
+        $historyPembelian = Struk::all();
+
 
         // Mulai menginisialisasi objek mPDF
         $mpdf = new Mpdf();
@@ -26,7 +27,6 @@ class HistoryController extends Controller
         // Membuat isi tabel HTML dengan menambahkan gaya CSS
         $html = '<style>
                     table {
-                        width: 100%;
                         border-collapse: collapse;
                         margin-bottom: 20px;
                     }
@@ -43,25 +43,28 @@ class HistoryController extends Controller
                     }
                 </style>
                 <h1>Laporan Pembelian</h1>
+
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
+                            <th>Nama Kasir</th>
+                            <th>Items</th>
+                            <th>Total_harga</th>
+                            <th>Tanggal dibuat</th>
                         </tr>
                     </thead>
                     <tbody>';
 
-        // Menambahkan data pengguna ke dalam tabel HTML
-        foreach ($kasirUsers as $index => $user) {
+        foreach ($historyPembelian as $index => $struk) {
             $html .= '<tr>
                         <td>' . ($index + 1) . '</td>
-                        <td>' . $user->name . '</td>
-                        <td>' . $user->email . '</td>
-                        <td>Hidden</td>
+                        <td>' . $struk->nama_kasir . '</td>
+                        <td>' . json_encode($struk->items) . '</td>
+                        <td>' . $struk->total_harga . '</td>
+                        <td>' . $struk->created_at . '</td>
                     </tr>';
+
         }
 
         // Menutup tabel HTML
@@ -72,23 +75,6 @@ class HistoryController extends Controller
 
         // Menyimpan atau menampilkan file PDF
         $mpdf->Output();
-    }
-
-    public function filter(Request $request)
-    {
-        $kasir = $request->input('kasir');
-        $date = $request->input('date');
-
-        // Query to get filtered history
-        $historyPembelian = Struk::when($kasir, function ($query) use ($kasir) {
-            return $query->where('nama_kasir', $kasir);
-        })
-            ->when($date, function ($query) use ($date) {
-                return $query->whereDate('created_at', $date);
-            })
-            ->get();
-
-        return view('admin-page.history.index', compact('historyPembelian'));
     }
 
 }
