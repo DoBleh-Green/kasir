@@ -26,3 +26,22 @@
         display: flex;
         gap: 35px;
     }
+
+    .btn-logout {
+        display: block;
+        width: 100px;
+        height: 40px;
+        margin: 0;
+        background-color: #f03;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    
+    .btn-logout:hover {
+        background-color: #e02;
+    }

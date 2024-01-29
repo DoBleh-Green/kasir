@@ -15,6 +15,8 @@
     <div class="left-bar">
         <div class="a-left-bar">
             <div class="a">
+                <a href="/logout" class="btn-logout">Logout</a>
+
                 <h2>{{ Auth::User()->name }}</h2>
                 <form method="GET" action="{{ route('search') }}" class="g-search">
                     <input class="search-input" type="text" name="query" placeholder="Cari Barang">
@@ -22,6 +24,7 @@
                 </form>
 
                 <div class="tbl-src">
+
                     <table id="mainTable">
                         <thead>
                             <tr>
@@ -52,7 +55,9 @@
                     </table>
                     @include('component-kasir.alert')
                 </div>
+
             </div>
+
             <div class="kpb">
                 <h2>Konfirmasi Barang</h2>
                 <div class="tbl-qty">
@@ -130,6 +135,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

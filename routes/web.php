@@ -21,6 +21,7 @@ use App\Http\Controllers\CrudBarangController;
 |
 */
 
+//user saat ada di route ini ia akan menjadi guest saat ia login ia akan menjadi kasir/admin
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [SesiController::class, 'index'])->name('login');
     Route::post('/', [SesiController::class, 'login']);

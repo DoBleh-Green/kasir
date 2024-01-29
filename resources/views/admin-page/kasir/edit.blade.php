@@ -95,22 +95,32 @@
 </head>
 
 <body>
-
-    <!-- resources/views/form_edit.blade.php -->
-
+    <!-- Container untuk formulir edit akun -->
     <div id="edit-form" style="display: block;">
+        <!-- Overlay, mungkin digunakan untuk efek visual saat formulir edit aktif -->
         <div class="overlay"></div>
+
+        <!-- Container untuk seluruh formulir -->
         <div class="form-container">
+            <!-- Form untuk mengirimkan data edit akun ke server -->
             <form action="/update/{{ $user->id }}" method="POST" class="edit-form">
+                <!-- Token CSRF untuk melindungi formulir dari serangan lintas situs -->
                 @csrf
+                <!-- Metode HTTP PUT untuk menandai bahwa ini adalah formulir edit -->
                 @method('put')
+
+                <!-- Judul formulir -->
                 <h1>Edit Account</h1>
+
+                <!-- Input untuk mengedit username -->
                 <label for="name">Username:</label>
                 <input type="text" id="name" name="name" value="{{ $user->name }}">
 
+                <!-- Input untuk mengedit email -->
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" value="{{ $user->email }}">
 
+                <!-- Tombol untuk menyimpan perubahan dan kembali ke halaman kasir -->
                 <div class="btn-bot">
                     <button class="edit-btn" type="submit">Edit</button>
                     <a class="close-btn" href="{{ route('kasir.index') }}">Cancel</a>
@@ -118,6 +128,7 @@
             </form>
         </div>
     </div>
+
 
 </body>
 

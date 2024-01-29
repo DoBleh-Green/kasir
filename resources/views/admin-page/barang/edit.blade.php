@@ -95,32 +95,45 @@
 </head>
 
 <body>
+<!-- Container untuk formulir edit barang -->
+<div id="edit-form" style="display: block;">
+    <!-- Overlay, mungkin digunakan untuk efek visual saat formulir edit aktif -->
+    <div class="overlay"></div>
 
-    <!-- resources/views/form_edit.blade.php -->
+    <!-- Container untuk seluruh formulir -->
+    <div class="form-container">
+        <!-- Form untuk mengirimkan data edit barang ke server -->
+        <form action="{{ route('barang.update', ['id' => $data->id]) }}" method="POST" class="edit-form">
+            <!-- Token CSRF untuk melindungi formulir dari serangan lintas situs -->
+            @csrf
+            <!-- Metode HTTP PUT untuk menandai bahwa ini adalah formulir edit -->
+            @method('put')
 
-    <div id="edit-form" style="display: block;">
-        <div class="overlay"></div>
-        <div class="form-container">
-            <form action="{{ route('barang.update', ['id' => $data->id]) }}" method="POST" class="edit-form">
-                @csrf
-                @method('put')
-                <h1>Edit Account</h1>
-                <label for="name">Nama Barang:</label>
-                <input type="text" id="nama_barang" name="nama_barang" value="{{ $data->nama_barang }}" required>
+            <!-- Judul formulir -->
+            <h1>Edit Account</h1>
 
-                <label for="stok">Stok:</label>
-                <input type="number" id="stok" name="stok" value="{{ $data->stok }}">
+            <!-- Input untuk mengedit nama barang -->
+            <label for="name">Nama Barang:</label>
+            <input type="text" id="nama_barang" name="nama_barang" value="{{ $data->nama_barang }}" required>
 
-                <label for="harga">Harga :</label>
-                <input type="number" id="harga_barang" name="harga_barang" value="{{ $data->harga_barang }}" required>
+            <!-- Input untuk mengedit stok barang -->
+            <label for="stok">Stok:</label>
+            <input type="number" id="stok" name="stok" value="{{ $data->stok }}">
 
-                <div class="btn-bot">
-                    <button class="edit-btn" type="submit">Edit</button>
-                    <a class="close-btn" href="{{ route('barang.index') }}">Cancel</a>
-                </div>
-            </form>
-        </div>
+            <!-- Input untuk mengedit harga barang -->
+            <label for="harga">Harga :</label>
+            <input type="number" id="harga_barang" name="harga_barang" value="{{ $data->harga_barang }}" required>
+
+            <!-- Tombol untuk mengirimkan formulir ke server -->
+            <div class="btn-bot">
+                <button class="edit-btn" type="submit">Edit</button>
+                <!-- Tombol untuk membatalkan dan kembali ke halaman indeks barang -->
+                <a class="close-btn" href="{{ route('barang.index') }}">Cancel</a>
+            </div>
+        </form>
     </div>
+</div>
+
 
 </body>
 

@@ -118,20 +118,35 @@
 </style>
 
 <body>
+    <!-- Memasukkan komponen sidebar menggunakan Blade directive -->
     @include('component.sb')
+
+    <!-- Konten utama halaman -->
     <div class="content">
         <h1>Crud Barang</h1>
 
+        <!-- Container utama -->
         <div class="container">
+
+            <!-- Tombol-tombol untuk membuat, menyortir, dan dropdown barang -->
             <div class="btn-sort">
+                <!-- Tombol untuk memunculkan/menyembunyikan formulir create barang -->
                 <a href="javascript:void(0);" onclick="toggleCreateFormBarang()" class="btn-create">Create<i
                         class="fa-solid fa-plus"></i></a>
+
+                <!-- Memasukkan komponen dropdown barang menggunakan Blade directive -->
                 @include('component.dd-brng')
             </div>
+
+            <!-- Memasukkan komponen formulir create barang menggunakan Blade directive -->
             @include('component.form_create_barang')
 
+            <!-- Tabel untuk menampilkan data barang -->
             <table>
+                <!-- Memasukkan komponen alert CRUD menggunakan Blade directive -->
                 @include('component.alert_crud')
+
+                <!-- Header tabel -->
                 <thead>
                     <tr>
                         <th>No</th>
@@ -142,13 +157,18 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <!-- Looping untuk menampilkan data barang -->
                     @foreach ($barang as $index => $item)
                         <tr>
+                            <!-- Nomor urutan -->
                             <td>{{ $index + 1 }}</td>
 
+                            <!-- Nama Barang -->
                             <td>{{ $item->nama_barang }} </td>
+
+                            <!-- Stok Barang -->
                             <td>{{ $item->stok }}
+                                <!-- Menambahkan icon panah ke atas jika stok lebih dari 10, dan panah ke bawah jika kurang dari 10 -->
                                 @if ($item->stok > 10)
                                     <i style="color: green;" class="fas fa-angle-up"></i>
                                 @endif
@@ -157,16 +177,23 @@
                                 @endif
                             </td>
 
+                            <!-- Harga Barang -->
                             <td>{{ $item->harga_barang }}</td>
+
+                            <!-- Tombol aksi edit dan hapus -->
                             <td>
                                 <div class="ed">
 
+                                    <!-- Tombol untuk menuju halaman edit barang -->
                                     <a class="btn-edit" href="{{ route('barang.edit', $item->id) }}">Edit <i
                                             class="fa-solid fa-pen"></i></a>
 
+                                    <!-- Form untuk menghapus data barang -->
                                     <form action="{{ route('barang.destroy', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
+
+                                        <!-- Tombol untuk mengkonfirmasi penghapusan data -->
                                         <button type="submit" class="btn-delete" style="font-size: 18px;"
                                             onclick="return confirm('Apakah anda Ingin menghapus data ini?')">Delete<i
                                                 class="fa-solid fa-trash"></i></button>

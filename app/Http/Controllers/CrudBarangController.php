@@ -13,18 +13,25 @@ class CrudBarangController extends Controller
      */
     public function index(Request $request)
     {
-        $barang = barang::all();
+        // Mengambil semua data barang dari model 'Barang'
+        $barang = Barang::all();
 
+        // Mengambil nilai parameter query 'sort' dari request, defaultnya adalah 'none'
         $sort = $request->query('sort', 'none');
 
+        // Memeriksa nilai 'sort' untuk menentukan pengurutan data
         if ($sort === 'desc') {
+            // Jika 'sort' adalah 'desc', mengambil data barang dan mengurutkannya berdasarkan kolom 'stok' secara descending
             $barang = Barang::orderBy('stok', 'desc')->get();
         } elseif ($sort === 'asc') {
+            // Jika 'sort' adalah 'asc', mengambil data barang dan mengurutkannya berdasarkan kolom 'stok' secara ascending
             $barang = Barang::orderBy('stok', 'asc')->get();
         } else {
+            // Jika 'sort' bukan 'desc' atau 'asc', menggunakan urutan asli dari data barang
             $barang = Barang::all();
         }
-        // menampilkan 'admin-page.barang.index'
+
+        // Menampilkan data barang ke dalam view 'admin-page.barang.index'
         return view('admin-page.barang.index', ['barang' => $barang]);
     }
 

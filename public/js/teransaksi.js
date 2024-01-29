@@ -1,11 +1,12 @@
 $(document).ready(function() {
-    // Prevent default form submission
+    // Mencegah pengiriman formulir secara default
     $("#searchForm").submit(function(event) {
         event.preventDefault();
-        // Your AJAX code for search can go here
+        // Kode AJAX untuk pencarian dapat ditempatkan di sini
     });
 });
 
+// Fungsi untuk menambahkan barang ke keranjang menggunakan AJAX
 function addToCart(id) {
     $.ajax({
         url: "/kasir/" + id,
@@ -24,6 +25,7 @@ function addToCart(id) {
     });
 }
 
+// Fungsi untuk menghapus barang dari keranjang menggunakan AJAX
 function removeFromCart(id) {
     $.ajax({
         url: "/kasir/" + id + "/remove",
@@ -40,7 +42,7 @@ function removeFromCart(id) {
     });
 }
 
-
+// Fungsi untuk mengurangi jumlah barang dalam keranjang menggunakan AJAX
 function reduceQuantity(id) {
     $.ajax({
         url: "/kasir/" + id + "/reduce",

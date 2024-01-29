@@ -114,18 +114,31 @@
     </style>
 
     <body>
+        <!-- Memasukkan komponen sidebar menggunakan Blade directive -->
         @include('component.sb')
-        <div class="content">
-            <h1>Acount kasir</h1>
 
+        <!-- Konten utama halaman -->
+        <div class="content">
+            <h1>Account Kasir</h1>
+
+            <!-- Container utama -->
             <div class="container">
+
+                <!-- Tombol untuk menampilkan/menyembunyikan formulir create kasir -->
                 <div class="btn">
                     <a href="javascript:void(0);" onclick="toggleCreateForm()" class="btn-create">Create<i
                             class="fa-solid fa-plus"></i></a>
                 </div>
+
+                <!-- Memasukkan komponen formulir create menggunakan Blade directive -->
                 @include('component.form_create')
+
+                <!-- Tabel untuk menampilkan data kasir -->
                 <table>
+                    <!-- Memasukkan komponen alert CRUD menggunakan Blade directive -->
                     @include('component.alert_crud')
+
+                    <!-- Header tabel -->
                     <thead>
                         <tr>
                             <th>No</th>
@@ -136,26 +149,40 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Mengambil data pengguna dengan peran 'kasir' -->
                         @php
-                            // Mengambil data pengguna dengan peran 'kasir'
                             $kasirUsers = \App\Models\User::where('role', 'kasir')->get();
                         @endphp
 
+                        <!-- Looping untuk menampilkan setiap data kasir -->
                         @foreach ($kasirUsers as $index => $user)
                             <tr>
+                                <!-- Nomor urutan -->
                                 <td>{{ $index + 1 }}</td>
+
+                                <!-- Nama kasir -->
                                 <td>{{ $user->name }}</td>
+
+                                <!-- Email kasir -->
                                 <td>{{ $user->email }}</td>
+
+                                <!-- Menyembunyikan password -->
                                 <td>Hidden</td>
+
+                                <!-- Tombol aksi edit dan hapus -->
                                 <td>
                                     <div class="ed">
 
-                                        <a class="btn-edit" href="/admin/kasir/form_edit/{{ $user->id }}">Edit
-                                            <i class="fa-solid fa-pen"></i></a>
+                                        <!-- Tombol untuk menuju halaman edit kasir -->
+                                        <a class="btn-edit" href="/admin/kasir/form_edit/{{ $user->id }}">Edit <i
+                                                class="fa-solid fa-pen"></i></a>
 
+                                        <!-- Form untuk menghapus data kasir -->
                                         <form action="{{ route('kasir.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
+
+                                            <!-- Tombol untuk mengkonfirmasi penghapusan data -->
                                             <button type="submit" class="btn-delete" style="font-size: 18px;"
                                                 onclick="return confirm('Apakah anda Ingin menghapus data ini?')">Delete<i
                                                     class="fa-solid fa-trash"></i></button>
@@ -168,6 +195,7 @@
                 </table>
             </div>
         </div>
+
         <script src="{{ asset('js/app1.js') }}" type="text/javascript"></script>
     </body>
 

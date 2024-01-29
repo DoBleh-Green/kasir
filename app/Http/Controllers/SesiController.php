@@ -8,46 +8,48 @@ use Illuminate\Support\Facades\Session;
 
 class SesiController extends Controller
 {
-    // function jika ia membaca get index dari routes web ia akan mengeluarkan view page login dari login.blade.php
+    // Jika route 'index' diakses, akan mengembalikan view 'login' dari login.blade.php
     function index()
     {
         return view('login');
     }
 
+    // Fungsi untuk proses login
     function login(Request $request)
     {
-        $validatedData = $request->validate(
-            [
-                /* required disini untuk menunjukan suatu filed harus di isi sama dengan
-                  required di html bedanya disini kita bisa membuat pesannya sendiri */
-                'email' => 'required',
-                'password' => 'required',
-            ],
-            [
-                // pengeluaran pesan untuk require
-                'email.required' => 'Email wajib di isi',
-                'password.required' => 'Password wajib di isi',
-            ]
-        );
+        // Melakukan validasi data yang diterima dari request
+        $validatedData = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email wajib di isi',
+            'password.required' => 'Password wajib di isi',
+        ]);
 
+        // Mengambil data email dan password dari request
         $infologin = [
             'email' => $request->email,
             'password' => $request->password,
         ];
+
+        // Memeriksa kecocokan data login menggunakan Auth::attempt
         if (Auth::attempt($infologin)) {
+            // Jika berhasil login, arahkan ke halaman sesuai dengan peran (role) pengguna
             if (Auth::user()->role == 'admin') {
                 return redirect('/admin');
             } elseif (Auth::user()->role == 'kasir') {
                 return redirect('/kasir');
             }
         } else {
-            // untuk menunjukan erorr juka user memasukan salah satu nya benar dan jika salah mengeluarkan errors dengan input nya tidak terhapus
+            // Jika login gagal, kembalikan dengan pesan error dan data input sebelumnya
             return redirect('')->withErrors('Email Atau Password tidak sesuai')->withInput();
         }
     }
 
+    // Fungsi untuk proses logout
     function logout()
     {
+        // Melakukan logout pengguna dan membersihkan session
         Auth::logout();
         Session::flush();
         return redirect('/');

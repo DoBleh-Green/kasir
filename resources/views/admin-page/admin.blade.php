@@ -17,7 +17,6 @@
         margin-left: 369px;
         padding: 16px;
         color: #fff;
-        /* Menyesuaikan warna teks sesuai kebutuhan Anda */
     }
 </STyle>
 
@@ -25,6 +24,7 @@
     @include('component.sb')
     <div class="content">
         <h1 style="font-size: 40px">Selamat datang!</h1>
+        <!-- mengambil  data name dari session dan menampilkannya -->
         <h1 style="font-size: 55px">{{ Auth::user()->name }}</h1>
         <h1 style="font-size: 40px">Anda berada di dashboard admin</h1>
     </div>

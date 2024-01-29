@@ -112,29 +112,24 @@
 </style>
 
 <body>
+    <!-- Memasukkan komponen sidebar menggunakan Blade directive -->
     @include('component.sb')
+
+    <!-- Konten utama halaman -->
     <div class="content">
         <h1>History Pembelian</h1>
 
+        <!-- Container utama -->
         <div class="container">
+
+            <!-- Tombol untuk mencetak riwayat pembelian dalam bentuk PDF -->
             <div class="btn">
-                <a href="{{ route('view_pdf') }}" target="blank" class="btn-create"><i class="fa-solid fa-print"
-                        style="margin-right: 11px;"></i>Print</a>
-                <!-- Add this before your table -->
-                {{-- <div class="filter-form">
-                    <form method="GET" action="{{ route('history.filter') }}">
-                        <label for="kasir">Filter by Cashier:</label>
-                        <input type="text" name="kasir" id="kasir" placeholder="Enter cashier's name">
-
-                        <label for="date">Filter by Date:</label>
-                        <input type="date" name="date" id="date">
-
-                        <button type="submit">Filter</button>
-                    </form>
-                </div> --}}
+                <a href="{{ route('view_pdf') }}" target="_blank" class="btn-create">
+                    <i class="fa-solid fa-print" style="margin-right: 11px;"></i>Print
+                </a>
             </div><br>
 
-
+            <!-- Tabel untuk menampilkan riwayat pembelian -->
             <table>
                 <thead>
                     <tr>
@@ -146,17 +141,27 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Mengambil data riwayat pembelian dari model Struk -->
                     @php
-                        // Mengambil data pengguna dengan peran 'kasir'
                         $historyPembelian = \App\Models\Struk::all();
                     @endphp
 
+                    <!-- Looping untuk menampilkan setiap data riwayat pembelian -->
                     @foreach ($historyPembelian as $index => $struk)
                         <tr>
+                            <!-- Nomor urutan -->
                             <td>{{ $index + 1 }}</td>
+
+                            <!-- Nama kasir -->
                             <td>{{ $struk->nama_kasir }}</td>
+
+                            <!-- Daftar item dalam format JSON -->
                             <td>{{ json_encode($struk->items) }}</td>
+
+                            <!-- Total harga pembelian -->
                             <td>{{ $struk->total_harga }}</td>
+
+                            <!-- Waktu pembelian -->
                             <td>{{ $struk->created_at }}</td>
                         </tr>
                     @endforeach
@@ -164,6 +169,7 @@
             </table>
         </div>
     </div>
+
 </body>
 
 </html>
